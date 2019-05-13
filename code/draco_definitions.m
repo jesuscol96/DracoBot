@@ -2,9 +2,9 @@
 
 
 %Lengths of the arm
-L1=1;
-L2=1;
-L3=1;
+L1=0.3;
+L2=0.5;
+L3=0.5;
 
 %Some useful positions
 qz = [0 0 0 0 0 0];
