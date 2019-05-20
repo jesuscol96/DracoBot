@@ -5,6 +5,8 @@
 L1=0.3;
 L2=0.5;
 L3=0.5;
+t = [0:0.05:2]';
+
 
 %Some useful positions
 qz = [0 0 0 0 0 0];
@@ -20,3 +22,5 @@ L(6)=Link([0 0 0 -pi/2],'R', 0);
 
 %SerialLink Object
 draco=SerialLink(L,'name','Draco');
+T0=SE3(0,0,0);
+q0 = draco.ikine(T0);

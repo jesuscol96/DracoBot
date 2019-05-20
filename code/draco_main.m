@@ -10,10 +10,10 @@ draco_definitions;
 %Options for user to choose
 con=true;
 while (con)
-    x=input(['Bienvenidos a DracoBot, ¬øQu√© desea hacer?:\n'...
-            '1 = Cinem√°tica Directa\n'...
-            '2 = Cinem√°tica Inversa R+T\n'...
-            '3 = Cinem√°tica Inversa T\n'...
+    x=input(['Bienvenidos a DracoBot, øQuÈ desea hacer?:\n'...
+            '1 = Cinem·tica Directa\n'...
+            '2 = Cinem·tica Inversa R+T\n'...
+            '3 = Cinem·tica Inversa RPY\n'...
             'Otro = Finalizar\n'...
              '>']);
     switch (x)
@@ -46,15 +46,48 @@ while (con)
             K(1:3 ,3) = y';
             qi = draco.ikine(K)
             draco.teach(qi)
+            
         case (3)
-            fprintf('Cinem√°tica Inversa T:')
-            T=draco.fkine(qz)
-            t0 = inputdlg({'Ingrese coordenadas del punto deseado'},...
-                  'Cinem√°tica Inversa', [1 50]); 
-            y = str2num(t0{1})
-            T.t=y'
-            qi = draco.ikine(T)
-            draco.teach(qi)
+            fprintf('Cinem·tica Inversa RPY:')
+            prompt ={'Ingrese coordenadas traslacionales del punto deseado\n ', '[[Angulo de Roll', 'Angulo de Pitch', 'Angulo de Yaw' };
+            dlgtitle ='Cinem√°tica Inversa';
+            dims=[1 50];
+            definput = {'0 0 0','0','0','0'}; 
+            u = inputdlg(prompt,dlgtitle,dims,definput)
+            y = u(1);
+            y = str2num(y{1})
+            tf=y
+            y = u(2);
+            y = str2num(y{1})
+            qr = y
+            y = u(3);
+            y = str2num(y{1})
+            qp = y
+            y = u(4);
+            y = str2num(y{1})
+            qy = y
+            Tf = SE3(tf) * SE3.Rz(qr)*SE3.Ry(qp)*SE3.Rx(qy);
+            qf = draco.ikine(Tf);
+            q = jtraj(q0, qf, t);
+            q0=qf;
+            figure(1);
+            draco.teach(q)
+            figure(2);
+            clf(figure(2),'reset')
+            subplot(2,2,1);
+            qplot(t, q)
+            T = draco.fkine(q);
+            p = T.transl
+            subplot(2,2,2);
+            plot(t, p(:,1),'b-',t, p(:,2),'r-',t, p(:,3),'g-')
+            legend('x','y','z')
+            xlabel('Time (s)'), ylabel('Position (m)')
+            subplot(2,2,3);
+            plot(p(1,:), p(2,:))
+            xlabel('x(m)'), ylabel('y(m)')
+            subplot(2,2,4);
+            plot(t, T.torpy('xyz'))
+            xlabel('Time (s)'), ylabel('RPY angles(rad)')
         otherwise        
             con=false;
     end
