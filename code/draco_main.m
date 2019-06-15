@@ -13,6 +13,7 @@ while (con)
     x=input(['Bienvenidos a DracoBot, ¿Qué desea hacer?:\n'...
             '1 = Cinemática Directa\n'...
             '2 = Cinemática Inversa RPY\n'...
+            '3 = Velocidad cinemática.\n' ...
             'Otro = Finalizar\n'...
              '>']);
     switch (x)
@@ -24,6 +25,8 @@ while (con)
             title(['Manipulador orientado con las variables articulares q=[' num2str(q) '] (grados)']);
         case (2)
             inversa_RPY;
+        case(3)
+            velocity;
         otherwise        
             con=false;
     end
