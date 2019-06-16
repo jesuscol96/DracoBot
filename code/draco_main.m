@@ -13,8 +13,9 @@ while (con)
     x=input(['Bienvenidos a DracoBot, ¿Qué desea hacer?:\n'...
             '1 = Cinemática Directa\n'...
             '2 = Cinemática Inversa RPY\n'...
-            '3 = Velocidad cinemática.\n' ...
-            '4 = Trayectorias\n'...
+            '3 = Trayectorias\n'...
+            '4 = Velocidad cinemática.\n' ...
+            '5 = Análisis dinámico\n'...
             'Otro = Finalizar\n'...
              '>']);
     switch (x)
@@ -25,11 +26,13 @@ while (con)
             draco.plot(q.*(pi/180));
             title(['Manipulador orientado con las variables articulares q=[' num2str(q) '] (grados)']);
         case (2)
-            inversa_RPY;
-        case(3)
-            velocity;
-        case (4)
+            inversa_RPY;        
+        case (3)
             trayectorias_join;
+        case(4)
+            velocity;
+        case(5)
+            dynamic;
 
         
 
