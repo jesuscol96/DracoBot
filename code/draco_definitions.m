@@ -10,7 +10,7 @@ t = [0:0.05:2]';
 
 %Some useful positions
 qz = [0 0 0 0 0 0];
-qn = [0 0.7854 3.1416 0 0.7854 0 ];
+qn = [0 45 180 0 45 0 ];
 
 %Links definitions
 L(1)=Link([0 L1 0 pi/2],'R', 0);

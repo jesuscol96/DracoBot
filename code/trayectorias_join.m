@@ -18,7 +18,7 @@ Ti = SE3(xi)
 Tf = SE3(xf)
 qi = draco.ikine(Ti);
 qf = draco.ikine(Tf);
-q = jtraj(qi, qf, t);
+[q,qd,qdd] = jtraj(qi, qf, t);
 figure(1);
 draco.teach(q)
 figure(2);
