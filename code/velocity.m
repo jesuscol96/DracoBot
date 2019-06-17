@@ -6,14 +6,13 @@ disp('Velocidad cinematica.');
 
 x=input(['Seleccione una opcion de analisis.\n'...
             '1 = Analizar una posicion\n'...
-            '2 = Analizar una trayectoria (ir a la opcion 4 del menu anterior antes de usar esta funcionalidad)\n'...            
+            '2 = Analizar una trayectoria (ir a la opcion 3 del menu anterior antes de usar esta funcionalidad)\n'...            
              '>']);
 %get info
 switch (x)
 	case(1) %Analiza una posición en especifica del manipulador
 		q=input('Ingrese la posicion de las articulaciones:');
 		q=q*(pi/180);
-
 
 		%jacobiano
 		disp('Jacobiano para la posicion dada:');
@@ -42,6 +41,7 @@ switch (x)
 		mean(m)
 		[m_row m_col]=find(m==0);
 		if length(m_row)==0 & length(m_col)==0
+			n_sing=1;
 			disp('No hay singularidades. Graficando velocidades...');
 			figure;
 			qplot(t,qd);
@@ -76,6 +76,7 @@ switch (x)
 			legend('W_a','W_b','W_g');
 
 		else
+			n_sing=0;
 			disp('Se detectaron los siguientes puntos singulares:');
 			disp('Vector q y manipulabilidad traslacional y rotacional');
 			[q(m_row,:) m(m_row,:)]

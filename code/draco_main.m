@@ -6,7 +6,6 @@ clear; close all;
 draco_definitions;
 
 
-
 %Options for user to choose
 con=true;
 while (con)
@@ -33,7 +32,6 @@ while (con)
             velocity;
         case(5)
             dynamic;
-
         
 
         otherwise        

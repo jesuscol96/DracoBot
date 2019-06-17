@@ -4,7 +4,7 @@ disp('Analisis dinamico.');
 
 x=input(['Seleccione una opcion de analisis.\n'...
             '1 = Analizar una configuracion (posicion, velocidad y aceleracion dadas)\n'...
-            '2 = Analizar una trayectoria (ir a la opcion 4 del menu anterior antes de usar esta funcionalidad)\n'...            
+            '2 = Analizar una trayectoria (generada con opcion 3 y verificada no singular con opcion 4.2)\n'...            
              '>']);
 %get info
 switch (x)
@@ -44,12 +44,42 @@ switch (x)
 		fprintf(['Vector de torques de friccion de las articulaciones para la velocidad dada (N*m):\n' num2str(fr) '\n']);
 		
 	case(2)
-
-
-
+		if exist('n_sing') 
+				if n_sing==1
+					x=input('¿Sostener un objeto en el extremo del manipulador?(1/0)');
+				if x
+					x=input('Masa del objeto (kg):');
+					draco.payload(x,[0 0.1 0]);
+				end
+				Q=draco.rne(q,qd,qdd);
+				figure;
+				subplot(2,1,1)
+				plot(t,Q(:,1));
+				hold on;
+				plot(t,Q(:,2));
+				hold on;
+				plot(t,Q(:,3));
+				title('Torque en las primeras tres articulaciones.');
+				xlabel('Tiempo (s)');
+				ylabel('Torque (N*m)');
+				legend('t_1','t_2','t_3');
+				subplot(2,1,2)
+				plot(t,Q(:,4));
+				hold on;
+				plot(t,Q(:,5));
+				hold on;
+				plot(t,Q(:,6));
+				title('Torque en las ultimas tres articulaciones.');
+				xlabel('Tiempo (s)');
+				ylabel('Torque (N*m)');
+				legend('t_4','t_5','t_6');
+			else
+				disp('La trayectoria planteada contiene puntos singulares y no puede ser usada.');
+			end
+		else
+			disp('Debe generar una trayectoria primero (use la opcion 3) y verificar que sea no singular (opcion 4.2)');
+		end
 
 	otherwise
 		disp('Opcion invalida.')
-
-
 end
