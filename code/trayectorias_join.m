@@ -39,10 +39,11 @@ Ti = SE3(xi) * SE3.Rz(qri)*SE3.Ry(qpi)*SE3.Rx(qyi);
 Tf = SE3(xf) * SE3.Rz(qrf)*SE3.Ry(qpf)*SE3.Rx(qyf);
 qi = draco.ikine(Ti);
 qf = draco.ikine(Tf);
-[q qd qdd] = mtraj(@tpoly,qi, qf, t);
-figure;
+q = mtraj(@tpoly,qi, qf, t);
+figure(1);
 draco.teach(q)
-figure;
+figure(2);
+clf(figure(2),'reset')
 subplot(2,2,1);
 qplot(t, q)
 T = draco.fkine(q);
