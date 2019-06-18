@@ -18,7 +18,5 @@ y = str2num(y{1});
 qy = y*(pi/180);
 Tf = SE3(tf) * SE3.Rz(qr)*SE3.Ry(qp)*SE3.Rx(qy);
 qf = draco.ikine(Tf);
-q = jtraj(q0, qf, t);
-q0=qf;
 figure;
-draco.teach(q)
+draco.teach(qf)
