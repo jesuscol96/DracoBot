@@ -1,5 +1,5 @@
 %Graficas de Trayectoria
-t=tgraf;
+%t=tgraf;
 figure;
 subplot(2,1,1);
 qplot(tgraf, q)

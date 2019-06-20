@@ -1,4 +1,6 @@
-fprintf('Generador de Trayectorias:')
+%Este archivo genera trayectorias
+
+
 prompt ={'Ingrese coordenadas del punto Inicial. x->[-0.9,0.9] ; y->[-0.9,0.9]; z->[-0.6,0.9]', 'Angulo de Roll inicial (grados)', 'Angulo de Pitch inicial (grados)', 'Angulo de Yaw inicial (grados)' 'Ingrese coordenadas del punto Final.x->[-0.9,0.9] ; y->[-0.9,0.9]; z->[-0.6,0.9]','Angulo de Roll final (grados)', 'Angulo de Pitch final (grados)', 'Angulo de Yaw final (grados)', 'Tiempo Maximo', 'Tiempo de Muestreo'};
 dlgtitle ='Generador de Trayectorias:';
 dims=[1 50];
@@ -9,25 +11,25 @@ y = str2num(y{1});
 xi=y;
 y = u(2);
 y = str2num(y{1});
-qri=y *(pi/180);
+qri=y;
 y = u(3);
 y = str2num(y{1});
-qpi=y*(pi/180);
+qpi=y;
 y = u(4);
 y = str2num(y{1});
-qyi=y*(pi/180);
+qyi=y;
 y = u(5);
 y = str2num(y{1});
 xf = y;
 y = u(6);
 y = str2num(y{1});
-qrf=y*(pi/180);
+qrf=y;
 y = u(7);
 y = str2num(y{1});
-qpf=y*(pi/180);
+qpf=y;
 y = u(8);
 y = str2num(y{1});
-qyf=y*(pi/180);
+qyf=y;
 y = u(9);
 y = str2num(y{1});
 tmax = y;
@@ -35,25 +37,20 @@ y = u(10);
 y = str2num(y{1});
 tsam = y;
 t = [0:tsam:tmax]';
-Ti = SE3(xi) * SE3.Rz(qri)*SE3.Ry(qpi)*SE3.Rx(qyi);
-Tf = SE3(xf) * SE3.Rz(qrf)*SE3.Ry(qpf)*SE3.Rx(qyf);
+Ti = SE3(xi) * SE3.Rx(qri)*SE3.Ry(qpi)*SE3.Rz(qyi);
+Tf = SE3(xf) * SE3.Rx(qrf)*SE3.Ry(qpf)*SE3.Rz(qyf);
 qi = draco.ikine(Ti);
 qf = draco.ikine(Tf);
 [q qd qdd] = mtraj(@tpoly,qi, qf, t);
-figure;
-draco.teach(q)
-figure;
-subplot(2,2,1);
-qplot(t, q)
-T = draco.fkine(q);
-p = T.transl;
-subplot(2,2,2);
-plot(t, p(:,1),'b-',t, p(:,2),'r-',t, p(:,3),'g-')
-legend('x','y','z')
-xlabel('Tiempo (s)'), ylabel('Posicion (m)')
-subplot(2,2,3);
-plot(p(:,1), p(:,2))
-xlabel('x(m)'), ylabel('y(m)')
-subplot(2,2,4);
-plot(t, T.torpy('xyz'))
-xlabel('Tiempo (s)'), ylabel('Angulos de RPY(rad)')
+
+disp('Trayectoria generada exitosamente, verifique que no sea singular antes de graficarla.')
+
+traj_creada=1;
+
+if exist('n_sing') 
+	clear n_sing;
+end
+		
+
+
+
