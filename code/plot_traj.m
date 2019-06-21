@@ -24,7 +24,7 @@ if exist('traj_creada')
 			disp('La trayectoria planteada contiene puntos singulares y no puede ser usada.');
 		end
 	else
-		disp('Debe verificar que la trayectoria sea no singular antes de graficarla.');
+		disp('Debe verificar que la trayectoria sea no singular antes de graficarla, use la opcion 5 del menu principal');
 	end
 else
 	disp('Debe generar una trayectoria antes de usar esta opcion.');
