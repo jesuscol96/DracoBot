@@ -43,7 +43,7 @@ qi = draco.ikine(Ti);
 qf = draco.ikine(Tf);
 [q qd qdd] = mtraj(@tpoly,qi, qf, t);
 
-disp('Trayectoria generada exitosamente, verifique que no sea singular antes de graficarla.')
+disp('Trayectoria generada exitosamente, use la opcion 5 del menu para verificar que no sea singular antes de graficarla.')
 
 traj_creada=1;
 
