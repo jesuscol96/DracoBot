@@ -44,7 +44,7 @@ end
 %Final time vector
 n=length(q);
 t=[0:tsam:(n-1)*tsam]';
-
+traj_creada=1;
 disp('La trayectoria de esta tarea ha sido cargada, use las opciones del menu para graficar diversos valores.');
 
 if exist('n_sing') 
